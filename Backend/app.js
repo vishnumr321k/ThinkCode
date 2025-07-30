@@ -3,9 +3,8 @@ const app = express();
 
 
 app.get('/', (req, res) => {
-    res.send('Hello welocom to the ThinkCode! 🎉');
+    res.send('Welcome to Think Code! 🎉');
 });
 
 
 module.exports = app;
-
