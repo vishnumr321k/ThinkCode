@@ -6,12 +6,11 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './user.schema';
 import { Model } from 'mongoose';
-import { emit } from 'process';
 import { CreateUserDto } from './dto/user-create.dto';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
 
   async createUser(dto: CreateUserDto): Promise<User> {
     // Checking user is already exit or not;
@@ -26,7 +25,10 @@ export class UserService {
   }
 
   async findByEmailUser(email: string) {
-    const user = await this.userModel.findOne({ email });
+    console.log('Aa nane findbyEmailUser inde...')
+   
+    const user = await this.userModel.findOne({email}).exec();
+    console.log('user:', user)
     if (!user) {
       throw new UnauthorizedException('The User is not there...🥲');
     }

@@ -25,13 +25,15 @@ export class AuthServeice {
   }
 
 
-  async login(email: string, passport: string){
+  async login(email: string, password: string){
+    console.log('Endha mone nane auth service login inde...')
     const user = await this.userService.findByEmailUser(email);
+    console.log('user', user);
     if(!user){
         throw new UnauthorizedException('Your email is incorrect or the user is not exit....😶‍🌫️');
     }
 
-    const isPasswordValid = await bcrypt.compare(passport, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if(!isPasswordValid){
         throw new UnauthorizedException('The password is incorect...😤');
     }
